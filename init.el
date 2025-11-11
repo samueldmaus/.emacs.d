@@ -2,6 +2,7 @@
 
 ;; core settings
 (setq
+ visible-bell t
  make-backup-files nil
  auto-save-default nil
  )
