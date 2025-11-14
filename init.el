@@ -6,13 +6,23 @@
  make-backup-files nil
  auto-save-default nil
  )
-
-(tool-bar-mode -1)
+(tool-bar-mode -1) ;; remove tool bar
+(repeat-mode 1)
+(winner-mode 1) ;; remember windows configuration
+(tab-bar-mode 1)
+(global-tab-line-mode 1)
+(tab-bar-history-mode 1)
 
 ;; attr setting
 (set-face-attribute 'font-lock-string-face nil
 		    :foreground "orange red"
 		    )
+
+;; global key settings
+(global-set-key [remap list-buffers] 'ibuffer)
+(global-set-key (kbd "M-o") 'other-window)
+(global-set-key (kbd "M-[") 'tab-bar-history-back)
+(global-set-key (kbd "M-]") 'tab-bar-history-forward)
 
 ;; set up package.el to work with MELPA
 (require 'package)
@@ -35,11 +45,23 @@
   (mapc #'package-install package-selected-packages)
   )
 
+;; windmove
+(windmove-default-keybindings)
+
 ;; ripgrep
 (require 'rg)
 
 ;; ag
 (require 'ag)
+
+;; ido
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(setq ido-use-filename-at-point 'guess)
+(setq ido-create-new-buffer 'always)
+(setq-default confirm-nonexistent-file-or-buffer nil)
+(setq ido-ignore-extensions t)
+(ido-mode 1)
 
 ;; projectile
 (use-package projectile
