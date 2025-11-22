@@ -6,3 +6,4 @@ elpa/
 .gitconfig_personal
 projectile-*
 transient/
+ido.last
