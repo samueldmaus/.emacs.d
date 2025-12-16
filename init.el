@@ -22,6 +22,7 @@
 (show-paren-mode 1)
 (electric-pair-mode 1)
 (delete-selection-mode 1)
+(add-hook 'prog-mode-hook #'hs-minor-mode) ;; hide-show minor mode for code folding,,, C-c @ C-h to hide // C-c @ C-s to show
 
 ;; global key settings
 (global-set-key [remap list-buffers] 'ibuffer)
@@ -41,6 +42,8 @@
 				  ag
 				  magit
 				  projectile
+				  helm
+				  company
 				  )
       )
 
@@ -60,13 +63,20 @@
 (require 'ag)
 
 ;; ido
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(setq ido-use-filename-at-point 'guess)
-(setq ido-create-new-buffer 'always)
-(setq-default confirm-nonexistent-file-or-buffer nil)
-(setq ido-ignore-extensions t)
-(ido-mode 1)
+;;(setq ido-enable-flex-matching t)
+;;(setq ido-everywhere t)
+;;(setq ido-use-filename-at-point 'guess)
+;;(setq ido-create-new-buffer 'always)
+;;(setq-default confirm-nonexistent-file-or-buffer nil)
+;;(setq ido-ignore-extensions t)
+;;(ido-mode 1)
+
+;; helm
+(require 'helm)
+(helm-mode 1)
+
+;; company
+(add-hook 'after-init-hook 'global-company-mode)
 
 ;; eglot
 (use-package eglot
@@ -74,9 +84,13 @@
   :defer t
   :config
   (add-to-list 'eglot-server-programs '((c-mode c++-mode) "clangd"))
+  (add-to-list 'eglot-server-programs '((csharp-mode csharp-ts-mode) "omnisharp" "-lsp"))
   :hook
   ((c-mode . eglot-ensure)
-   (c++-mode . eglot-ensure))
+   (c++-mode . eglot-ensure)
+   (csharp-mode . eglot-ensure)
+   (csharp-ts-mode . eglot-ensure)
+   )
   )
 
 ;; projectile
@@ -93,6 +107,7 @@
 (use-package magit
   :ensure t
   )
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
