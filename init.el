@@ -29,6 +29,7 @@
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-[") 'tab-bar-history-back)
 (global-set-key (kbd "M-]") 'tab-bar-history-forward)
+(global-set-key (kbd "C-c b") 'bury-buffer) ;; keybind bury buffer
 
 ;; set up package.el to work with MELPA
 (require 'package)
@@ -44,6 +45,7 @@
 				  projectile
 				  helm
 				  company
+				  web-mode
 				  )
       )
 
@@ -74,6 +76,10 @@
 ;; helm
 (require 'helm)
 (helm-mode 1)
+
+;; web-mode
+(use-package web-mode
+  :ensure t)
 
 ;; company
 (add-hook 'after-init-hook 'global-company-mode)
