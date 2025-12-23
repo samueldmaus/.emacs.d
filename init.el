@@ -78,8 +78,8 @@
 (helm-mode 1)
 
 ;; web-mode
-(use-package web-mode
-  :ensure t)
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.cshtml\\'" . web-mode))
 
 ;; company
 (add-hook 'after-init-hook 'global-company-mode)
@@ -113,6 +113,17 @@
 (use-package magit
   :ensure t
   )
+
+;; org-mode
+(require 'org)
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(setq org-log-done t)
+(setq org-agenda-files (list "~/org/banfield.org"
+			     "~/org/redwing.org"
+			     "~/org/boco.org"))
+(setq org-agenda-sorting-strategy
+      '(todo-state-up priority-up effort-up deadline-up))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
