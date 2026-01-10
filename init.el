@@ -23,6 +23,7 @@
 (electric-pair-mode 1)
 (delete-selection-mode 1)
 (add-hook 'prog-mode-hook #'hs-minor-mode) ;; hide-show minor mode for code folding,,, C-c @ C-h to hide // C-c @ C-s to show
+;;(whitespace-mode 1)
 
 ;; global key settings
 (global-set-key [remap list-buffers] 'ibuffer)
@@ -43,6 +44,7 @@
 				  ag
 				  magit
 				  projectile
+				  ibuffer-projectile
 				  helm
 				  company
 				  web-mode
@@ -108,6 +110,12 @@
 	      ("C-c p" . projectile-command-map)
 	      )
   )
+;; ibuffer-projectile
+(add-hook 'ibuffer-hook
+    (lambda ()
+      (ibuffer-projectile-set-filter-groups)
+      (unless (eq ibuffer-sorting-mode 'alphabetic)
+        (ibuffer-do-sort-by-alphabetic))))
 
 ;; magit
 (use-package magit
@@ -124,6 +132,7 @@
 			     "~/org/boco.org"))
 (setq org-agenda-sorting-strategy
       '(todo-state-up priority-up effort-up deadline-up))
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
